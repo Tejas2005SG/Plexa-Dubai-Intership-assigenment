@@ -14,7 +14,9 @@ import InvoiceComponent from './Components/invoice-page/invoice.jsx';
 import AccountSetting from './Components/account-setting-page/accountSetting.jsx';
 import AcceptReject from './Components/accept-reject/acceptReject.jsx';
 import Loader from "./Components/loading-component/loader.jsx";
-import HomePage from './Components/home/home.jsx';
+import HomePage from "./Components/Homepage/Homepage.jsx"
+import Dashboardhome from "./Components/home/home.jsx"
+
 
 import { useAuthStore } from './Components/Store/AuthStore.js';
 
@@ -28,8 +30,8 @@ const ProtectedRoute = ({ children }) => {
 
 const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
-  if (isCheckingAuth) return <div><Loader/></div>;
-  if (isAuthenticated && user?.isVerified) return <Navigate to='/' replace />;
+  if (isCheckingAuth) return <div><Loader /></div>;
+  if (isAuthenticated && user?.isVerified) return <Navigate to='/dashboard' replace />;
   return children;
 };
 
@@ -48,18 +50,23 @@ function App() {
   if (!initialized || isCheckingAuth) return <div>Loading...</div>;
 
   return (
-    <div className='min-h-screen bg-gray-100 flex items-center justify-center relative overflow-hidden'>
+    <div className='min-h-screen bg-gray-100'>
       <Routes>
-        <Route path='/' element={
+    <Route path='/' element={
+      <HomePage/>
+    }/>
+      
+        <Route path='/dashboard' element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
         }>
+          <Route index element={<Dashboardhome />} />
           <Route path="campaign" element={user?.role === "citizen" ? <CampaignComponent /> : <Navigate to='/login' />} />
           <Route path="invoice" element={user?.role === "citizen" ? <InvoiceComponent /> : <Navigate to='/login' />} />
           <Route path="account-setting" element={<AccountSetting />} />
           <Route path="accept-reject" element={user?.role === "admin" ? <AcceptReject /> : <Navigate to='/login' />} />
-          <Route path="dashboard-home" element={user?.role === "admin" ? <HomePage /> : <Navigate to='/login' />} />
+          {/* <Route path="dashboard-home" element={user?.role === "admin" ? <Dashboardhome /> : <Navigate to='/login' />} /> */}
         </Route>
         <Route path='/signup' element={
           <RedirectAuthenticatedUser>

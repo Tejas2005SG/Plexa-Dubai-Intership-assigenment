@@ -1,3 +1,4 @@
+
 import { User } from "../Models/user.model.js";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
@@ -69,7 +70,8 @@ export const signup = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    console.log(error);
+    res.status(400).json({ success: false, message: `${error}` });
   }
 };
 
@@ -238,12 +240,7 @@ export const resetPassword = async (req, res) => {
  
     res.status(400).json({
       success:false,
-      message:error.message
+      message:`${error}`
     })
   }
 };
-
-
-
-
-

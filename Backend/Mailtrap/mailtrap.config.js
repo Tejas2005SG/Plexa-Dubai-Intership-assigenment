@@ -1,7 +1,7 @@
 import { MailtrapClient } from "mailtrap"
 
-const TOKEN = "48295a46cac835ce2b77e385b0f56840";
-const ENDPOINT = "https://send.api.mailtrap.io/"
+const TOKEN = "a7b578009fd69986ac6a48186d5de3ac";
+const ENDPOINT = "send.api.mailtrap.io/"
 
 export const client = new MailtrapClient({
   token: TOKEN,
@@ -9,7 +9,7 @@ export const client = new MailtrapClient({
 });
 
 export const sender = {
-  email: "hello@demomailtrap.com",
+  email: "hello@demomailtrap.co",
   name: "Mailtrap Test",
 };
   

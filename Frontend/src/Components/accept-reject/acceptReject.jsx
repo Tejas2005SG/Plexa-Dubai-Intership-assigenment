@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import {axiosInstance} from "../../api/api.js"
 import { jsPDF } from 'jspdf';
 import Loader from '../loading-component/loader.jsx';
 const ITEMS_PER_PAGE = 6;
@@ -17,7 +17,7 @@ const AcceptReject = () => {
     const fetchCampaigns = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:5000/api/campaign/all', { timeout: 10000 });
+            const response = await axiosInstance.get('/campaign/all', { timeout: 10000 });
             if (response.status === 200 && response.data) {
                 const updatedCampaigns = response.data.map(campaign => ({
                     ...campaign,
@@ -95,7 +95,7 @@ const AcceptReject = () => {
 
     const handleDownloadCampaign = async (id) => {
         await handleAction(id, 'download', async (campaignId) => {
-            const response = await axios.get(`http://localhost:5000/api/campaign/download/${campaignId}`, {
+            const response = await axiosInstance.get(`/campaign/download/${campaignId}`, {
                 responseType: 'blob',
                 timeout: 10000,
             });
@@ -112,7 +112,7 @@ const AcceptReject = () => {
 
     const handleApprove = async (id) => {
         await handleAction(id, 'approve', async (campaignId) => {
-            const response = await axios.post(`http://localhost:5000/api/campaign/accept-reject/${campaignId}`, { status: 'Approved' });
+            const response = await axiosInstance.post(`/campaign/accept-reject/${campaignId}`, { status: 'Approved' });
             if (response.status === 200) {
                 updateCampaignStatus(campaignId, 'Approved');
             } else {
@@ -123,7 +123,7 @@ const AcceptReject = () => {
 
     const handleReject = async (id) => {
         await handleAction(id, 'reject', async (campaignId) => {
-            const response = await axios.post(`http://localhost:5000/api/campaign/accept-reject/${campaignId}`, { status: 'Rejected' });
+            const response = await axiosInstance.post(`/campaign/accept-reject/${campaignId}`, { status: 'Rejected' });
             if (response.status === 200) {
                 updateCampaignStatus(campaignId, 'Rejected');
             } else {

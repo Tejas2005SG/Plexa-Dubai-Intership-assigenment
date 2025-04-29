@@ -20,7 +20,7 @@ export const sendVerificationEmail = async (email, verificationToken) => {
     
   } catch (error) {
   
-    throw error(`Error in sending Verification email : ${error}`);
+    throw new Error(`Error in sending Verification email : ${error}`);
   }
 };
 
@@ -31,9 +31,9 @@ export const sendWelcomeEmail = async (email, name) => {
     const response = await client.send({
       from: sender,
       to: recipients,
-      template_uuid: "e62c8783-179a-4372-a7a8-7bd6f8c75d3f",
+      template_uuid: "d40fafc0-d331-4a40-8929-4f150b3100dd",
       template_variables: {
-        company_info_name: "Auth-Project",
+        company_info_name: "Campaign-Invoice System",
         name: name,
       },
     });
@@ -60,7 +60,7 @@ export const sendPasswordResetEmail = async (email, resetURL)=>{
     
 
   } catch (error) {
-    throw error(`Error in sending Forgot Password  : ${error}`);
+    throw new Error(`Error in sending Forgot Password  : ${error}`);
     
   }
 }
@@ -81,7 +81,7 @@ export const sendResetSuccessEmail = async (email, resetURL)=>{
 
   } catch (error) {
    
-    throw error(`Error in sending Reset Email  : ${error}`);
+    throw new Error(`Error in sending Reset Email  : ${error}`);
     
   }
 }

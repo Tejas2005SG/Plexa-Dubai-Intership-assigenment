@@ -6,7 +6,7 @@ import {
   campaignAcceptReject,
   fetchCampaigns,
   downloadCampaign,  // Import the new function for downloading
-  fetchCampaignStats,
+  // fetchCampaignStats,
 } from "../Controller/campaign.controller.js";
 
 import multer from "multer";
@@ -29,5 +29,5 @@ router.post("/accept-reject/:id", protectRoute, adminRoute, campaignAcceptReject
 // Download campaign as CSV by ID
 router.get("/download/:id", protectRoute,adminRoute, downloadCampaign);
 
-router.get('/stats', protectRoute, adminRoute,fetchCampaignStats);
+// router.get('/stats', protectRoute, adminRoute,fetchCampaignStats);
 export default router;
